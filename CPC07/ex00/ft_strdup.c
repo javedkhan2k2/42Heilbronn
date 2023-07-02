@@ -1,4 +1,4 @@
-#include <stdio.h>
+//#include <stdio.h>
 #include <stdlib.h>
 
 int	ft_strlen(char *src)
@@ -31,15 +31,15 @@ char	*ft_strdup(char *src)
 	return (res);
 }
 
-int	main(void)
-{
-	char	*str2;
+// int	main(void)
+// {
+// 	char	*str2;
 
-	char str1[] = "Hello";
-	printf("Size of Str1:%ld\n", sizeof(str1));
-	printf("Size of Str2:%ld\n", sizeof(str2));
-	str2 = ft_strdup(str1);
-	printf("Str2:%s\n", str2);
-	printf("Size of Str2:%ld\n", sizeof(str2));
-	return (0);
-}
+// 	char str1[] = "Hello";
+// 	printf("Size of Str1:%ld\n", sizeof(str1));
+// 	printf("Size of Str2:%ld\n", sizeof(str2));
+// 	str2 = ft_strdup(str1);
+// 	printf("Str2:%s\n", str2);
+// 	printf("Size of Str2:%ld\n", sizeof(str2));
+// 	return (0);
+// }

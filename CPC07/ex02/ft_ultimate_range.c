@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <stdio.h>
 
 int	ft_ultimate_range(int **range, int min, int max)
 {
@@ -30,17 +29,16 @@ int	ft_ultimate_range(int **range, int min, int max)
 		//**range = **range + 1;
 	}
 	return (len);
-
 }
-
-int main(void)
-{
-	int *ptr;
-	int res = ft_ultimate_range(&ptr, -5, 5);
-	if(res == -1)
-		return (0);
-	for(int i=0;i<res;i++)
-		printf("%d, ", ptr[i]);
-	printf("\n");
-	return (0);
-}
+//#include <stdio.h>
+// int main(void)
+// {
+// 	int *ptr;
+// 	int res = ft_ultimate_range(&ptr, 0, 0);
+// 	if(res == -1)
+// 		return (0);
+// 	for(int i=0;i<res;i++)
+// 		printf("%d, ", ptr[i]);
+// 	printf("\n");
+// 	return (0);
+// }
