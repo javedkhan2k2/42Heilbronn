@@ -10,8 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
+
+int	get_strlen(char *str)
+{
+	int	count;
+
+	count = 0;
+	while (str[count])
+		count++;
+	return (count);
+}
 
 int	get_str_len(int size, char **strs)
 {
@@ -35,44 +44,54 @@ int	get_str_len(int size, char **strs)
 	return (len);
 }
 
-char	*ft_strjoin(int size, char **strs, char *sep)
+char	*ft_join(int size, char **strs, char *sep, char *res)
 {
-	char	*res;
-	int		len;
-	int		i;
-	int		j;
+	int	len;
+	int	i;
+	int	j;
 
-	if (size == 0)
-		return ((char *)malloc(1 * sizeof(char)));
-	res = (char *)malloc((get_str_len(size, strs) + size) * sizeof(char));
 	len = 0;
 	i = 0;
 	while (i < size)
 	{
 		j = 0;
-		while (strs[i][j])
-		{
-			res[len++] = strs[i][j];
-			j++;
-		}
-		res[len++] = *sep;
+		if (get_strlen(strs[i]))
+			while (strs[i][j])
+				res[len++] = strs[i][j++];
+		j = 0;
+		while (sep[j])
+			res[len++] = sep[j++];
 		i++;
 	}
-	res[--len] = '\0';
+	res[len - get_strlen(sep)] = '\0';
 	return (res);
 }
 
-int	main(void)
+char	*ft_strjoin(int size, char **strs, char *sep)
 {
-	char	**stringArray;
-	char*	strings[] = {"Hello", "World", "How", "Are", "You"};
 	char	*res;
 
-	// Create the string array
-	
-	stringArray = strings;
-	res = ft_strjoin(5, stringArray, ",");
-	printf("%s\n", res);
-	free(res);
-	return (0);
+	if (size == 0)
+		return ((char *)malloc(1 * sizeof(char)));
+	res = (char *)malloc((get_str_len(size, strs) + size + get_strlen(sep))
+			* sizeof(char));
+	res = ft_join(size, strs, sep, res);
+	return (res);
 }
+
+// #include <stdio.h>
+// int	main(void)
+// {
+// 	char	**stringArray;
+// 	char*	strings[] = {"Hello", "World", "How", "Are", "You"};
+// 	char	*res;
+
+// 	// Create the string array
+
+// 	stringArray = strings;
+// 	res = ft_strjoin(5, stringArray, ",");
+// 	printf("%s\n", res);
+// 	free(res);
+// 	return (0);
+// }
+
