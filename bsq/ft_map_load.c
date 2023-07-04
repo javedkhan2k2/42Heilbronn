@@ -6,7 +6,7 @@
 /*   By: jalam <javed_alam@outlook.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 00:03:26 by jalam             #+#    #+#             */
-/*   Updated: 2023/07/04 13:19:40 by jalam            ###   ########.fr       */
+/*   Updated: 2023/07/04 15:57:48 by jalam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ int	process_map(int *fd, char *name)
 	if (*fd == -1)
 	{
 		perror("Error opening the file");
-		return (1);
+		return (0);
 	}
 	s_map.bytes_read = read(*fd, s_map.buffer, sizeof(s_map.buffer));
 	if (s_map.bytes_read == -1)
 	{
 		perror("Error reading the file");
 		close(*fd);
-		return (1);
+		return (0);
 	}
 	s_map.num_of_lines = 0;
 	s_map.idx = 0;
@@ -56,9 +56,9 @@ int	process_map(int *fd, char *name)
 
 	if(!is_map_valid(&s_map))
 	{
+		printf("map error\n");
 		return (0);
 	}
-	//s_map.first_line = read_line(buffer, line, &i, bytes_read);
-	//check_first_line(s_map.first_line);
+
 	return (1);
 }

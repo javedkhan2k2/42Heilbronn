@@ -6,28 +6,33 @@
 /*   By: jalam <javed_alam@outlook.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 11:15:21 by jalam             #+#    #+#             */
-/*   Updated: 2023/07/04 13:51:11 by jalam            ###   ########.fr       */
+/*   Updated: 2023/07/04 16:47:27 by jalam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_map_load.h"
 #include "ft_map_struct.h"
 #include "ft_str.h"
 #include "ft_validate_map.h"
-#include "ft_map_load.h"
 #include <stdio.h>
 
 int	is_map_valid(struct s_map_file *s_map)
 {
 	int	i;
 
-	if (!validate_sym_y(s_map))
-		return (0);
-	if(!get_x(s_map))
+	if (!get_y(s_map) || !get_x(s_map, s_map->idx) || !chk_lines(s_map,
+			s_map->idx))
 		return (0);
 	return (1);
 }
 
-int	validate_sym_y(struct s_map_file *s_map)
+/*
+ * Find the number of lines and assign it to y
+ * Check if empty, Obstacles and Print character are given and assign it to sym
+ * Check if any sym is repeat
+ * Check if the sym are printable
+ */
+int	get_y(struct s_map_file *s_map)
 {
 	int	i;
 
@@ -42,10 +47,7 @@ int	validate_sym_y(struct s_map_file *s_map)
 		ft_strncpy(s_map->sym, (s_map->line + i), 3);
 	}
 	if (s_map->y == 0)
-	{
-		printf("map Error in check_first_line();\n");
-		return (-1);
-	}
+		return (0);
 	i = 0;
 	if (s_map->sym[0] == s_map->sym[1] || s_map->sym[0] == s_map->sym[2]
 		|| s_map->sym[1] == s_map->sym[2])
@@ -56,17 +58,56 @@ int	validate_sym_y(struct s_map_file *s_map)
 	return (1);
 }
 
-int	get_x(struct s_map_file *s_map)
+/*
+ * Check every line length is same
+ * Also check the number of lines with the actual provided in first line
+ * After success assign the length to x
+ */
+int	get_x(struct s_map_file *s_map, int tidx)
 {
-	int temp_idx;
-	int s;
+	int	s;
+	int	len;
 
-	temp_idx = s_map->idx;
 	s = 0;
-	while(read_line(s_map))
+	len = -1;
+	while (read_line(s_map))
 	{
+		if (len == -1)
+			len = ft_strlen(s_map->line);
+		if (len != ft_strlen(s_map->line))
+			return (0);
 		s++;
 	}
-	printf("num of lines are: %d\n", s);
-	return (0);
+	if (s_map->y != s)
+		return (0);
+	s_map->x = s;
+	s_map->idx = tidx;
+	return (1);
+}
+
+/*
+ * The characters on the map can only be those introduced in the first line.
+ */
+int	chk_lines(struct s_map_file *s_map, int tidx)
+{
+	int	i;
+	int	j;
+	int	res;
+
+	while (read_line(s_map))
+	{
+		i = 0;
+		while (s_map->line[i])
+		{
+			j = 0;
+			res = 0;
+			while (j < 3)
+				if (s_map->line[i] == s_map->sym[j++])
+					res = 1;
+			if (!res)
+				return (0);
+			i++;
+		}
+	}
+	return (1);
 }
