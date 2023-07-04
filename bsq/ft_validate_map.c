@@ -6,7 +6,7 @@
 /*   By: jalam <javed_alam@outlook.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 11:15:21 by jalam             #+#    #+#             */
-/*   Updated: 2023/07/04 16:47:27 by jalam            ###   ########.fr       */
+/*   Updated: 2023/07/04 20:23:42 by jalam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "ft_validate_map.h"
 #include <stdio.h>
 
-int	is_map_valid(struct s_map_file *s_map)
+int	is_map_valid(struct s_map *s_map)
 {
 	int	i;
 
@@ -32,7 +32,7 @@ int	is_map_valid(struct s_map_file *s_map)
  * Check if any sym is repeat
  * Check if the sym are printable
  */
-int	get_y(struct s_map_file *s_map)
+int	get_y(struct s_map *s_map)
 {
 	int	i;
 
@@ -63,7 +63,7 @@ int	get_y(struct s_map_file *s_map)
  * Also check the number of lines with the actual provided in first line
  * After success assign the length to x
  */
-int	get_x(struct s_map_file *s_map, int tidx)
+int	get_x(struct s_map *s_map, int tidx)
 {
 	int	s;
 	int	len;
@@ -88,7 +88,7 @@ int	get_x(struct s_map_file *s_map, int tidx)
 /*
  * The characters on the map can only be those introduced in the first line.
  */
-int	chk_lines(struct s_map_file *s_map, int tidx)
+int	chk_lines(struct s_map *s_map, int tidx)
 {
 	int	i;
 	int	j;
@@ -109,5 +109,6 @@ int	chk_lines(struct s_map_file *s_map, int tidx)
 			i++;
 		}
 	}
+	s_map->idx = tidx;
 	return (1);
 }

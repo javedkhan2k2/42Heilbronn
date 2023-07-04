@@ -6,7 +6,7 @@
 /*   By: jalam <javed_alam@outlook.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 00:02:42 by jalam             #+#    #+#             */
-/*   Updated: 2023/07/04 16:10:56 by jalam            ###   ########.fr       */
+/*   Updated: 2023/07/04 16:53:25 by jalam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	main(void)
 	int	res;
 	int	fd;
 
-	res = process_map(&fd, "map4.txt");
+	if(process_map(&fd, "map4.txt"))
+		printf("Map processed Successfully.\n");
 	close(fd);
 	return (0);
 }

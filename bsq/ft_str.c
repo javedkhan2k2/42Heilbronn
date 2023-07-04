@@ -6,11 +6,12 @@
 /*   By: jalam <javed_alam@outlook.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 00:03:18 by jalam             #+#    #+#             */
-/*   Updated: 2023/07/04 00:04:23 by jalam            ###   ########.fr       */
+/*   Updated: 2023/07/04 17:52:20 by jalam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_str.h"
+#include <stdlib.h>
 
 char	*ft_strncpy(char *dest, char *src, unsigned int n)
 {
@@ -38,4 +39,24 @@ int	ft_strlen(char *src)
 	while (src[i])
 		i++;
 	return (i);
+}
+
+char	*ft_strdup(char *src)
+{
+	int		len;
+	int		i;
+	char	*res;
+
+	len = ft_strlen(src);
+	res = (char *)malloc((len + 1) * sizeof(char));
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (src[i])
+	{
+		res[i] = src[i];
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
 }
